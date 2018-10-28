@@ -101,19 +101,21 @@ class App extends Component {
         ref={this.setDrumMachine}
         tabIndex="0"
       >
+        <div className="grid">
+          {instruments.map((instrument) => (
+            <Instrument
+            activateInstrument={this.handleClick}
+            key={instrument.trigger}
+            instrument={instrument}
+            />
+          ))}
+        </div>
         <div id="display">
           {currentInstrument && (
             <h2>
               {currentInstrument.label}
             </h2>
           )}
-          {instruments.map((instrument) => (
-            <Instrument
-              activateInstrument={this.handleClick}
-              key={instrument.trigger}
-              instrument={instrument}
-            />
-          ))}
         </div>
       </div>
     );

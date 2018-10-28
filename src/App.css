@@ -1,4 +1,5 @@
 .App {
+  outline: none;
   text-align: center;
 }
 
@@ -29,4 +30,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.drum-pad {
+  border: 1px solid green;
+  box-sizing: border-box;
+  flex-basis: 100px;
+  padding: 10px;
+}
+
+.grid {
+  display: flex;
 }

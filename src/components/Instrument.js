@@ -14,6 +14,7 @@ class Instrument extends Component {
 
     if (!prevActive && active) {
       this.playAudio();
+      this.setActiveCss();
     }
   }
 
@@ -25,11 +26,25 @@ class Instrument extends Component {
     this.audioPlayer.play();
   }
 
+  setActiveCss = () => {
+    if (this.clearPlaying) {
+      clearTimeout(this.clearPlaying);
+    }
+    this.setState({ isPlaying: true }, () => {
+      this.clearPlaying = setTimeout(() => {
+        this.clearPlaying = null;
+        this.setState({ isPlaying: false });
+      }, 250);
+    })
+  }
+
   setAudioPlayer = (element) => {
     this.audioPlayer = element;
   }
 
   render() {
+    const { isPlaying } = this.state;
+
     const {
       activateInstrument,
       instrument,
@@ -39,8 +54,17 @@ class Instrument extends Component {
       <div
         className="drum-pad"
         onClick={() => activateInstrument(instrument)}
+        style={{
+          backgroundColor: isPlaying ? 'green' : 'white',
+          color: isPlaying ? 'white' : 'green',
+        }}
       >
-        {instrument.label}
+        <p>
+          {instrument.label}
+        </p>
+        <p>
+          {instrument.trigger}
+        </p>
         <audio
           ref={this.setAudioPlayer}
           src={instrument.src}
