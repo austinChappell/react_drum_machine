@@ -1,5 +1,9 @@
 .App {
+  background: linear-gradient(#3EC6C3, #222222);
+  box-sizing: border-box;
+  min-height: 100vh;
   outline: none;
+  padding-top: 10px;
   text-align: center;
 }
 
@@ -23,7 +27,7 @@
   color: #61dafb;
 }
 
-p {
+h2, p {
   margin: 0;
 }
 
