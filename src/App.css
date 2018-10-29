@@ -23,6 +23,10 @@
   color: #61dafb;
 }
 
+p {
+  margin: 0;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -32,13 +36,13 @@
   }
 }
 
-.drum-pad {
-  border: 1px solid green;
-  box-sizing: border-box;
-  flex-basis: 100px;
-  padding: 10px;
-}
-
 .grid {
+  background-color: #222222;
+  color: white;
   display: flex;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  max-width: 60vh;
+  min-width: 300px;
+  width: 60vw;
 }

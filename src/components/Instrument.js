@@ -2,9 +2,16 @@ import React, { Component } from 'react'
 
 class Instrument extends Component {
   audioPlayer = React.createRef();
+  padRef = React.createRef();
 
   state = {
     isPlaying: false,
+    padHeight: 0,
+  }
+
+  componentDidMount() {
+    this.setPadHeight();
+    window.addEventListener('resize', this.setPadHeight);
   }
 
   componentDidUpdate(prevProps) {
@@ -42,8 +49,21 @@ class Instrument extends Component {
     this.audioPlayer = element;
   }
 
+  setPadHeight = () => {
+    const { offsetWidth } = this.padRef;
+    console.log({ offsetWidth })
+    this.setState({ padHeight: offsetWidth })
+  }
+
+  setPadRef = (element) => {
+    this.padRef = element;
+  }
+
   render() {
-    const { isPlaying } = this.state;
+    const {
+      isPlaying,
+      padHeight,
+    } = this.state;
 
     const {
       activateInstrument,
@@ -55,16 +75,36 @@ class Instrument extends Component {
         className="drum-pad"
         onClick={() => activateInstrument(instrument)}
         style={{
-          backgroundColor: isPlaying ? 'green' : 'white',
-          color: isPlaying ? 'white' : 'green',
+          display: 'flex',
+          flexBasis: `calc(${100 / 3}% - 20px)`,
+          flexDirection: 'column',
+          margin: 10,
         }}
-      >
-        <p>
-          {instrument.label}
-        </p>
-        <p>
-          {instrument.trigger}
-        </p>
+        >
+        <div style={{ height: 20 }}>
+          <span style={{ fontSize: 10 }}>
+            {instrument.label}
+          </span>
+        </div>
+        <div
+          ref={this.setPadRef}
+          style={{
+            alignItems: 'center',
+            backgroundColor: isPlaying ? '#3EC6C3' : '#AEFEFE',
+            border: '1px solid #3EC6C3',
+            boxSizing: 'border-box',
+            color: isPlaying ? 'white' : '#3EC6C3',
+            display: 'flex',
+            flexGrow: 1,
+            height: padHeight,
+            justifyContent: 'center',
+            padding: 10,
+          }}
+        >
+          <p>
+            {instrument.trigger}
+          </p>
+        </div>
         <audio
           className="clip"
           ref={this.setAudioPlayer}
