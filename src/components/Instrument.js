@@ -100,8 +100,6 @@ class Instrument extends Component {
 
     return (
       <div
-        className="drum-pad"
-        onClick={() => activateInstrument(instrument)}
         style={{
           display: 'flex',
           flexBasis: `calc(${100 / 3}% - 20px)`,
@@ -115,6 +113,9 @@ class Instrument extends Component {
           </span>
         </div>
         <div
+          className="drum-pad"
+          id={instrument.label}
+          onClick={() => activateInstrument(instrument)}
           ref={this.setPadRef}
           style={{
             alignItems: 'center',
@@ -132,13 +133,14 @@ class Instrument extends Component {
         >
           <p>
             {instrument.trigger}
+            <audio
+              className="clip"
+              id={instrument.trigger}
+              ref={this.setAudioPlayer}
+              src={instrument.src}
+            />
           </p>
         </div>
-        <audio
-          className="clip"
-          ref={this.setAudioPlayer}
-          src={instrument.src}
-        />
       </div>
     )
   }

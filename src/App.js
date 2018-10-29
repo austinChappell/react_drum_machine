@@ -182,13 +182,13 @@ class App extends Component {
             />
           ))}
         </div>
-        <div id="display">
+        <h2
+         id="display"
+         style={{ color: '#ffffff' }}>
           {currentInstrument && (
-            <h2 style={{ color: '#ffffff' }}>
-              {currentInstrument.label}
-            </h2>
+            currentInstrument.label
           )}
-        </div>
+        </h2>
       </div>
     );
   }
