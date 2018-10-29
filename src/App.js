@@ -3,30 +3,64 @@ import './App.css';
 
 import Instrument from './components/Instrument';
 
-import hhClosedSound from './assets/sounds/hi_hat_closed.wav';
-import kickSound from './assets/sounds/kick.wav';
-import snareSound from './assets/sounds/snare.wav';
+import sounds from './assets/sounds';
 
 class App extends Component {
   state = {
     instruments: [
       {
         active: false,
-        label: 'kick',
-        src: kickSound,
+        label: 'china',
+        src: sounds.china,
         trigger: 'Q',
       },
       {
         active: false,
-        label: 'snare',
-        src: snareSound,
+        label: 'crash',
+        src: sounds.crash,
         trigger: 'W',
       },
       {
         active: false,
-        label: 'hi hat (closed)',
-        src: hhClosedSound,
+        label: 'ride',
+        src: sounds.ride,
         trigger: 'E',
+      },
+      {
+        active: false,
+        label: 'hh-close',
+        src: sounds.hhClosed,
+        trigger: 'A',
+      },
+      {
+        active: false,
+        label: 'hh-open',
+        src: sounds.hhOpen,
+        trigger: 'S',
+      },
+      {
+        active: false,
+        label: 'ride-bell',
+        src: sounds.rideBell,
+        trigger: 'D'
+      },
+      {
+        active: false,
+        label: 'kick',
+        src: sounds.kick,
+        trigger: 'Z',
+      },
+      {
+        active: false,
+        label: 'snare',
+        src: sounds.snare,
+        trigger: 'X',
+      },
+      {
+        active: false,
+        label: 'snare-rim',
+        src: sounds.snareRim,
+        trigger: 'C',
       }
     ],
   }

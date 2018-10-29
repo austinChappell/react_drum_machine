@@ -66,6 +66,7 @@ class Instrument extends Component {
           {instrument.trigger}
         </p>
         <audio
+          className="clip"
           ref={this.setAudioPlayer}
           src={instrument.src}
         />
