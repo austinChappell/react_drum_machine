@@ -1,12 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
+const NEONS = [
+  {
+    light: '#FFBDFE',
+    dark: '#FF95FF',
+  },
+  {
+    light: '#AEFEFE',
+    dark: '#3EC6C3',
+  }
+];
 
 class Instrument extends Component {
-  audioPlayer = React.createRef();
-  padRef = React.createRef();
+  constructor() {
+    super();
 
-  state = {
-    isPlaying: false,
-    padHeight: 0,
+    this.audioPlayer = React.createRef();
+    this.padRef = React.createRef();
+    
+    const neonIndex = Math.floor(Math.random() * NEONS.length);
+    this.state = {
+      isPlaying: false,
+      neonColor: NEONS[neonIndex],
+      padHeight: 0,
+    }
   }
 
   componentDidMount() {
@@ -72,6 +89,7 @@ class Instrument extends Component {
   render() {
     const {
       isPlaying,
+      neonColor,
       padHeight,
     } = this.state;
 
@@ -100,11 +118,11 @@ class Instrument extends Component {
           ref={this.setPadRef}
           style={{
             alignItems: 'center',
-            backgroundColor: isPlaying ? '#3EC6C3' : '#AEFEFE',
-            border: '1px solid #3EC6C3',
+            backgroundColor: isPlaying ? neonColor.dark : neonColor.light,
+            border: `1px solid ${neonColor.dark}`,
             borderRadius: 5,
             boxSizing: 'border-box',
-            color: isPlaying ? 'white' : '#3EC6C3',
+            color: isPlaying ? 'white' : '#222222',
             display: 'flex',
             flexGrow: 1,
             height: padHeight,
