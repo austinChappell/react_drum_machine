@@ -17,18 +17,29 @@ class Instrument extends Component {
   componentDidUpdate(prevProps) {
     const { instrument } = this.props;
     const prevActive = prevProps.instrument.active;
-    const { active } = instrument;
+    const {
+      active,
+      wasStopped,
+    } = instrument;
 
     if (!prevActive && active) {
       this.playAudio();
       this.setActiveCss();
     }
+
+    if (wasStopped) {
+      this.pauseAudio();
+    }
   }
+
+  pauseAudio = () => {
+    this.audioPlayer.pause();
+    this.audioPlayer.currentTime = 0;
+}
 
   playAudio = () => {
     if (!this.audioPlayer.paused) {
-      this.audioPlayer.pause();
-      this.audioPlayer.currentTime = 0;
+      this.pauseAudio();
     }
     this.audioPlayer.play();
   }
@@ -51,7 +62,6 @@ class Instrument extends Component {
 
   setPadHeight = () => {
     const { offsetWidth } = this.padRef;
-    console.log({ offsetWidth })
     this.setState({ padHeight: offsetWidth })
   }
 

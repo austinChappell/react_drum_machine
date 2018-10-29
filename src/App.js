@@ -10,57 +10,75 @@ class App extends Component {
     instruments: [
       {
         active: false,
-        label: 'china',
+        canStop: [],
+        label: 'China',
         src: sounds.china,
         trigger: 'Q',
+        wasStopped: false,
       },
       {
         active: false,
-        label: 'crash',
+        canStop: [],
+        label: 'Crash',
         src: sounds.crash,
         trigger: 'W',
+        wasStopped: false,
       },
       {
         active: false,
-        label: 'ride',
+        canStop: [],
+        label: 'Ride',
         src: sounds.ride,
         trigger: 'E',
+        wasStopped: false,
       },
       {
         active: false,
-        label: 'hh-close',
+        canStop: ['HH Open'],
+        label: 'HH Close',
         src: sounds.hhClosed,
         trigger: 'A',
+        wasStopped: false,
       },
       {
         active: false,
-        label: 'hh-open',
+        canStop: ['HH Close'],
+        label: 'HH Open',
         src: sounds.hhOpen,
         trigger: 'S',
+        wasStopped: false,
       },
       {
         active: false,
-        label: 'ride-bell',
+        canStop: [],
+        label: 'Bell',
         src: sounds.rideBell,
-        trigger: 'D'
+        trigger: 'D',
+        wasStopped: false,
       },
       {
         active: false,
-        label: 'kick',
+        canStop: [],
+        label: 'Kick',
         src: sounds.kick,
         trigger: 'Z',
+        wasStopped: false,
       },
       {
         active: false,
-        label: 'snare',
+        canStop: [],
+        label: 'Snare',
         src: sounds.snare,
         trigger: 'X',
+        wasStopped: false,
       },
       {
         active: false,
-        label: 'snare-rim',
+        canStop: [],
+        label: 'Snare Rim Knock',
         src: sounds.snareRim,
         trigger: 'C',
+        wasStopped: false,
       }
     ],
   }
@@ -71,13 +89,28 @@ class App extends Component {
 
   activateInstrument = (instrument) => {
     const instruments = this.state.instruments.slice();
-    console.log({ instrument });
     const instIndex = instruments.findIndex(i => i.trigger === instrument.trigger);
-    const newInstrument = { ...instrument, active: true };
+    const newInstrument = {
+      ...instrument,
+      active: true,
+      wasStopped: false,
+    };
+    if (newInstrument.canStop.length > 0) {
+      // loop over each instrument that can be stopped
+      newInstrument.canStop.forEach((instrumentLabel) => {
+        // get the index of this instrument
+        const instrumentToStopIndex = instruments.findIndex(i => i.label === instrumentLabel);
+        // create a fresh copy of this object so Instrument component will update
+        const stoppedInstrument = {
+          ...instruments[instrumentToStopIndex],
+          wasStopped: true,
+        };
+        instruments[instrumentToStopIndex] = stoppedInstrument;
+      })
+    }
     instruments[instIndex] = newInstrument;
 
-    console.log({ instruments })
-
+    // cancel the timeout to remove display
     if (this.deactivationTimer) {
       clearTimeout(this.deactivationTimer);
     }
@@ -135,6 +168,9 @@ class App extends Component {
         ref={this.setDrumMachine}
         tabIndex="0"
       >
+        <h2>
+          Sir Flamalot's Drum Machine
+        </h2>
         <div
           className="grid"
         >
