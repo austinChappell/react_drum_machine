@@ -92,6 +92,7 @@ class Instrument extends Component {
             alignItems: 'center',
             backgroundColor: isPlaying ? '#3EC6C3' : '#AEFEFE',
             border: '1px solid #3EC6C3',
+            borderRadius: 5,
             boxSizing: 'border-box',
             color: isPlaying ? 'white' : '#3EC6C3',
             display: 'flex',
